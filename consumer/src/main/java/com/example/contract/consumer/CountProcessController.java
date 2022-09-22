@@ -17,15 +17,12 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class CountProcessController {
 
-    @Autowired
-    private RestTemplate restTemplate;
-
     @GetMapping("/calculate")
     public String checkOddAndEven(@RequestParam("number") Integer number) {
         var httpHeaders = new HttpHeaders();
         httpHeaders.add("Content-Type", "application/json");
 
-        ResponseEntity<String> responseEntity = restTemplate.exchange(
+        ResponseEntity<String> responseEntity = new RestTemplate().exchange(
                 "http://localhost:8090/validate/prime-number?number=" + number,
                 HttpMethod.GET,
                 new HttpEntity<>(httpHeaders),
