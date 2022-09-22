@@ -1,0 +1,10 @@
+name: simpleStub
+description: Some description
+request:
+  method: GET
+  url: /validate/prime-number
+  queryParameters:
+    number: 2
+response:
+  status: 200
+  body: Even
