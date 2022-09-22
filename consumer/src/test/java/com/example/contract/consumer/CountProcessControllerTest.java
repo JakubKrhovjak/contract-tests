@@ -23,7 +23,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @AutoConfigureJsonTesters
 @AutoConfigureStubRunner(
         stubsMode = StubRunnerProperties.StubsMode.LOCAL,
-        ids = "com.example.contract:provider:+:stubs:8090")
+        ids = "com.example.contract:provider:+:stubs:8090"
+)
 public class CountProcessControllerTest {
 
     @Autowired
@@ -38,5 +39,4 @@ public class CountProcessControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("Even"));
     }
-
 }

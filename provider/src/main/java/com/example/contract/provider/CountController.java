@@ -13,6 +13,7 @@ public class CountController {
 
     @GetMapping("/validate/prime-number")
     public String isNumberPrime(@RequestParam("number") Integer number) {
+        System.out.println("____________________________________________________");
         return number % 2 == 0 ? "Even" : "Odd";
     }
 }
