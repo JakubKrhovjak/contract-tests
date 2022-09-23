@@ -4,10 +4,10 @@ spring:
       default:
         contentType: application/json
       function:
-        definition: simpleMessageProducer
+        definition: simpleMessageProducer;simpleMessageReceiver
       bindings:
         simpleMessageProducer-out-0:
           destination: consumer-event
-#        simpleMessageReceiver-in-0:
-#          destination: consumer-event
+        simpleMessageReceiver-in-0:
+          destination: consumer-event
 
