@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    stream:
+      default:
+        contentType: application/json
+      function:
+        definition: simpleMessageProducer
+      bindings:
+        simpleMessageProducer-out-0:
+          destination: consumer-event
+#        simpleMessageReceiver-in-0:
+#          destination: consumer-event
+
