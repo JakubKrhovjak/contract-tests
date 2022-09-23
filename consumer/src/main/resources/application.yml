@@ -6,10 +6,11 @@ spring:
     stream:
       default:
         default-binder: rabbit
-        contentType: application/json
-          # Input topics
-        pmSfxEventReceiver-in-0:
-          destination: simple-message-event
-          group: consumer
+      function:
+        definition: simpleMessageReceiver
+      bindings:
+        simpleMessageReceiver-in-0:
+          destination: consumer-event
+
 
 

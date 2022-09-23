@@ -3,7 +3,7 @@ version: '3.6'
 services:
   rabbit:
     container_name: rabbit
-    image: rabbitmq:3-management
+    image: rabbitmaaq:3-management
     ports:
       - '5672:5672'
       - '15672:15672'
