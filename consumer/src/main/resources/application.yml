@@ -1,0 +1,15 @@
+server:
+  port: 8081
+
+spring:
+  cloud:
+    stream:
+      default:
+        default-binder: rabbit
+        contentType: application/json
+          # Input topics
+        pmSfxEventReceiver-in-0:
+          destination: simple-message-event
+          group: consumer
+
+

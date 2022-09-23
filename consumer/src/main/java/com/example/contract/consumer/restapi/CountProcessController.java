@@ -1,4 +1,4 @@
-package com.example.contract.consumer;
+package com.example.contract.consumer.restapi;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;

@@ -1,0 +1,15 @@
+version: '3.6'
+
+services:
+  rabbit:
+    container_name: rabbit
+    image: rabbitmq:3-management
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+#    environment:
+#      - RABBITMQ_DEFAULT_VHOST=/
+#      - RABBITMQ_DEFAULT_USER=quest
+#      - RABBITMQ_DEFAULT_PASS=quest
+#    restart: always
+
