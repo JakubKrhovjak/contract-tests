@@ -37,9 +37,9 @@ public class OutputMessagingConfiguration {
         return () -> Flux.create(sink -> simpleMessageChannel = sink::next);
     }
 
-    @Bean
-    public Consumer<Message<String>> simpleMessageReceiver() {
-        return message -> log.info(message.getPayload());
-    }
+//    @Bean
+//    public Consumer<Message<String>> simpleMessageReceiver() {
+//        return message -> log.info(message.getPayload());
+//    }
 
 }

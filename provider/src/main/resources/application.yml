@@ -8,6 +8,6 @@ spring:
       bindings:
         simpleMessageProducer-out-0:
           destination: consumer-event
-        simpleMessageReceiver-in-0:
-          destination: consumer-event
+#        simpleMessageReceiver-in-0:
+#          destination: consumer-event
 
