@@ -5,6 +5,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.assertj.core.api.Assertions;
+import org.assertj.core.api.BDDAssertions;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
+import org.springframework.cloud.contract.stubrunner.StubTrigger;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.cloud.stream.binder.test.InputDestination;
@@ -36,6 +39,7 @@ import java.nio.charset.StandardCharsets;
         stubsMode = StubRunnerProperties.StubsMode.LOCAL,
         ids = "com.example.contract:provider:+:stubs:8090"
 )
+@ExtendWith(OutputCaptureExtension.class)
 public class CountProcessControllerTest {
 
     @Autowired
@@ -43,6 +47,9 @@ public class CountProcessControllerTest {
 
     @Autowired
     private InputDestination input;
+
+    @Autowired
+    StubTrigger trigger;
 
     @Test
     public void given_WhenPassEvenNumberInQueryParam_ThenReturnEven()
@@ -55,12 +62,22 @@ public class CountProcessControllerTest {
     }
 
     @Test
-    @ExtendWith(OutputCaptureExtension.class)
     public void inputMessageTest(CapturedOutput log) throws Exception {
         input.send(MessageBuilder.withPayload("test").build(),"consumer-event.destination");
 
         assertThat(log.getOut()).contains("Data: test");
     }
+
+    @Test
+    public void inputMessageContractTest(CapturedOutput log) {
+        this.trigger.trigger("simpleMessageContract");
+
+        String out = new String(log.getOut());
+        assertThat(log.getOut()).contains("Data: \"test\"");
+        assertThat(log.getOut()).contains("testValue");
+
+    }
+
 
 
 
