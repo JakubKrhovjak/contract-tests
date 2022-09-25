@@ -29,7 +29,7 @@ public class ApiController {
 
 
     @GetMapping("/test")
-    public void test() {
-        simpleMessageChannel.accept(MessageBuilder.withPayload("test").build());
+    public void testMessage() {
+        simpleMessageChannel.accept(MessageBuilder.withPayload("test").setHeader("testHeader", "testValue").build());
     }
 }

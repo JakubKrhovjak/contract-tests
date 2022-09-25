@@ -1,0 +1,9 @@
+description: Simple message stub
+label: simpleMessageContract
+input:
+  triggeredBy: triggerSendMessage()
+outputMessage:
+  sentTo: consumer-event
+  body: "test"
+  headers:
+    testHeader: "testValue"

@@ -20,9 +20,12 @@ import org.springframework.test.web.servlet.MockMvc;
  * Created by Jakub Krhovják on 9/24/22.
  */
 
-@SpringBootTest(classes = { ProviderApplication.class, TestChannelBinderConfiguration.class })
-@AutoConfigureMockMvc
-public class RestControllerTest {
+//@SpringBootTest(classes = { ProviderApplication.class, TestChannelBinderConfiguration.class })
+//@AutoConfigureMockMvc
+public class RestControllerTest extends ContractTestClass {
+
+    @Autowired
+    ApiController controller;
 
     @Autowired
     protected OutputDestination output;
@@ -31,12 +34,16 @@ public class RestControllerTest {
     private MockMvc mvc;
 
     @Test
-    void sendMessage() throws Exception {
+    public void sendMessage() throws Exception {
         mvc.perform(get("/api/test"))
                 .andExpect(status().is2xxSuccessful());
 
         final var firstMessage = output.receive(1000, "consumer-event.destination");
         assertThat(new String(firstMessage.getPayload())).isEqualTo("test");
-
     }
+
+    public void triggerSendMessage() throws Exception {
+        controller.testMessage();
+    }
+
 }
