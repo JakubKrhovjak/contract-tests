@@ -28,27 +28,18 @@ public class OutputMessagingConfiguration {
 
    private SimpleMessageChannel simpleMessageChannel;
 
-    @Bean
-    public SimpleMessageChannel simpleMessageChanel() {
-        return d -> simpleMessageChannel.accept(d);
-    }
 
     @Bean
-    public Supplier<Flux<Message<String>>> simpleMessageProducer() {
-        return () -> Flux.create(sink -> simpleMessageChannel = sink::next);
+    public Sinks.Many<Message<String>> simpleMessageSink(){
+        return Sinks.many().unicast().onBackpressureBuffer();
     }
 
 
-//    @Bean
-//    public Sinks.Many<String> simpleMessageSink(){
-//        return Sinks.many().unicast().onBackpressureBuffer();
-//    }
-//
-//
-//    @Bean
-//    public Supplier<Flux<String>> simpleMessageProducer(Sinks.Many<String> sink) {
-//        return sink::asFlux;
-//    }
+    @Bean
+    public Supplier<Flux<Message<String>>> simpleMessageProducer(Sinks.Many<Message<String>> sink) {
+        return sink::asFlux;
+    }
+
 
 //    @Bean
 //    public Consumer<Message<String>> simpleMessageReceiver() {

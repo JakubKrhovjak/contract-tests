@@ -3,11 +3,14 @@ package com.example.contract.provider;
 import com.example.contract.provider.messaging.SimpleMessageChannel;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import reactor.core.publisher.Sinks;
 
 /**
  * Created by Jakub Krhovják on 9/22/22.
@@ -24,12 +27,12 @@ public class ApiController {
 
 
     @Autowired
-    private SimpleMessageChannel simpleMessageChannel;
+    private Sinks.Many<Message<String>> simpleMessageSink;
 
 
 
     @GetMapping("/test")
     public void testMessage() {
-        simpleMessageChannel.accept(MessageBuilder.withPayload("test").setHeader("testHeader", "testValue").build());
+        simpleMessageSink.tryEmitNext(MessageBuilder.withPayload("test").setHeader("testHeader", "testValue").build());
     }
 }

@@ -23,7 +23,7 @@ public class CountProcessController {
         httpHeaders.add("Content-Type", "application/json");
 
         ResponseEntity<String> responseEntity = new RestTemplate().exchange(
-                "http://localhost:8090/validate/prime-number?number=" + number,
+                "http://localhost:8090/api/validate/prime-number?number=" + number,
                 HttpMethod.GET,
                 new HttpEntity<>(httpHeaders),
                 String.class);
