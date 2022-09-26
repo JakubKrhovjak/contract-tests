@@ -16,6 +16,7 @@ import javax.annotation.PostConstruct;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Sinks;
 
 /**
  * Created by Jakub Krhovják on 9/22/22.
@@ -36,6 +37,18 @@ public class OutputMessagingConfiguration {
     public Supplier<Flux<Message<String>>> simpleMessageProducer() {
         return () -> Flux.create(sink -> simpleMessageChannel = sink::next);
     }
+
+
+//    @Bean
+//    public Sinks.Many<String> simpleMessageSink(){
+//        return Sinks.many().unicast().onBackpressureBuffer();
+//    }
+//
+//
+//    @Bean
+//    public Supplier<Flux<String>> simpleMessageProducer(Sinks.Many<String> sink) {
+//        return sink::asFlux;
+//    }
 
 //    @Bean
 //    public Consumer<Message<String>> simpleMessageReceiver() {

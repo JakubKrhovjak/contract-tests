@@ -37,4 +37,8 @@ public class ContractTestClass {
         RestAssuredMockMvc.webAppContextSetup(webAppContext);
     }
 
+    public void triggerSendMessage() throws Exception {
+        controller.testMessage();
+    }
+
 }

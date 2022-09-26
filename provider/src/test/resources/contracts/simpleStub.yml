@@ -2,7 +2,7 @@ name: simpleStub
 description: Some description
 request:
   method: GET
-  url: /validate/prime-number
+  url: /api/validate/prime-number
   queryParameters:
     number: 2
 response:
