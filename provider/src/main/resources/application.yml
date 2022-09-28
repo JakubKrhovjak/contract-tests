@@ -1,6 +1,7 @@
 spring:
   cloud:
     stream:
+#      binding-retry-interval: 5
       default:
         contentType: application/json
       function:
@@ -8,6 +9,11 @@ spring:
       bindings:
         simpleMessageProducer-out-0:
           destination: consumer-event
+          consumer:
+            back-off-initial-interval: 1
+            max-attempts: 1
+
+
 #        simpleMessageReceiver-in-0:
 #          destination: consumer-event
 
