@@ -4,13 +4,22 @@ server:
 spring:
   cloud:
     stream:
-      default:
-        default-binder: rabbit
+#      default:
+#        default-binder: kafka
       function:
         definition: simpleMessageReceiver
       bindings:
         simpleMessageReceiver-in-0:
           destination: consumer-event
+          consumer:
+
+
+            back-off-initial-interval: 1
+            max-attempts: 1
+
+
+
+
 
 
 
