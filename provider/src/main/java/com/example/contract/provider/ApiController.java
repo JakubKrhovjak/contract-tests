@@ -1,6 +1,6 @@
 package com.example.contract.provider;
 
-import com.example.contract.provider.messaging.SimpleMessageChannel;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Sinks;
 
 /**
@@ -19,6 +21,7 @@ import reactor.core.publisher.Sinks;
 @RestController
 @RequestMapping("/api")
 public class ApiController {
+    private static ObjectMapper OB = new ObjectMapper();
 
     @GetMapping("/validate/prime-number")
     public String isNumberPrime(@RequestParam("number") Integer number) {
@@ -27,12 +30,19 @@ public class ApiController {
 
 
     @Autowired
-    private Sinks.Many<Message<String>> simpleMessageSink;
+    private Sinks.Many<Message<ApiController.TestData>> simpleMessageSink;
 
 
 
     @GetMapping("/test")
     public void testMessage() {
-        simpleMessageSink.tryEmitNext(MessageBuilder.withPayload("test").setHeader("testHeader", "testValue").build());
+        simpleMessageSink.tryEmitNext(MessageBuilder.withPayload(new TestData("name",  "testName")).setHeader("testHeader", "testValue").build());
+    }
+
+    @Data
+    @RequiredArgsConstructor
+    public static class TestData {
+        private final String key;
+        private final String value;
     }
 }

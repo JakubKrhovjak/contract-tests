@@ -1,5 +1,7 @@
 package com.example.contract.provider.messaging;
 
+import com.example.contract.provider.ApiController;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,17 +28,15 @@ import reactor.core.publisher.Sinks;
 @Configuration
 public class OutputMessagingConfiguration {
 
-   private SimpleMessageChannel simpleMessageChannel;
-
 
     @Bean
-    public Sinks.Many<Message<String>> simpleMessageSink(){
+    public Sinks.Many<Message<ApiController.TestData>> simpleMessageSink(){
         return Sinks.many().unicast().onBackpressureBuffer();
     }
 
 
     @Bean
-    public Supplier<Flux<Message<String>>> simpleMessageProducer(Sinks.Many<Message<String>> sink) {
+    public Supplier<Flux<Message<ApiController.TestData>>> simpleMessageProducer(Sinks.Many<Message<ApiController.TestData>> sink) {
         return sink::asFlux;
     }
 

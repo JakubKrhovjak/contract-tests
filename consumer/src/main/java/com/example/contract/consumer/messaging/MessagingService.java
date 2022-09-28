@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class MessagingService {
 
-    public void process(String data, MessageHeaders headers) {
+    public void process(TestData data, MessageHeaders headers) {
         log.info("Data: {}", data);
         log.info("Headers: {}", headers.get("testHeader"));
     }

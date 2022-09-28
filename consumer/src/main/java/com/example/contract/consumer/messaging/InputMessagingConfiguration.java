@@ -20,7 +20,7 @@ public class InputMessagingConfiguration {
     private final MessagingService messagingService;
 
     @Bean
-    public Consumer<Message<String>> simpleMessageReceiver() {
+    public Consumer<Message<TestData>> simpleMessageReceiver() {
         return message -> messagingService.process(message.getPayload(), message.getHeaders());
     }
 

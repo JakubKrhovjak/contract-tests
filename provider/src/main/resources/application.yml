@@ -11,3 +11,5 @@ spring:
 #        simpleMessageReceiver-in-0:
 #          destination: consumer-event
 
+server:
+  port: 8082
